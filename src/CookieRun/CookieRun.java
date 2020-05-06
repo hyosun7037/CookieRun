@@ -58,6 +58,8 @@ public class CookieRun extends JFrame {
 
 	MyPanel panel;
 
+	JFrame frame;
+	
 	private int runPage = 0; // 한 화면 이동시 체력 깎기 위한 변수
 
 	private int runStage = 1; // 스테이지 확인 변수
@@ -120,7 +122,10 @@ public class CookieRun extends JFrame {
 	int cookieHeight = cookie.getImage().getHeight(null); // 캐릭터 높이
 
 	// 젤리 이미지, 이펙트 이미지
-	private ImageIcon jelly = new ImageIcon("img/jellyTest.png"); // 젤리
+	private ImageIcon jelly1 = new ImageIcon("img/jelly1.png"); // 젤리
+	private ImageIcon jelly2 = new ImageIcon("img/jelly2.png"); // 젤리
+	private ImageIcon jelly3 = new ImageIcon("img/jelly3.png"); // 젤리
+	
 	private ImageIcon effect = new ImageIcon("img/tw2.png");
 
 	// 장애물 이미지
@@ -272,7 +277,7 @@ public class CookieRun extends JFrame {
 			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지, 1,1사이즈로 반복문
 				for (int j = 0; j < maxY; j += 1) {
 					if (colorArr[i][j] == 16776960) {
-						jellyList.add(new Jelly(jelly.getImage(), i * 40, j * 40, 30, 30, 1000)); // 좌표에 40곱하고, 넓이와 높이는
+						jellyList.add(new Jelly(jelly1.getImage(), i * 40, j * 40, 30, 30, 1000)); // 좌표에 40곱하고, 넓이와 높이는
 																									// 30
 					}
 				}
@@ -282,7 +287,7 @@ public class CookieRun extends JFrame {
 			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지, 1,1사이즈로 반복문
 				for (int j = 0; j < maxY; j += 1) {
 					if (colorArr[i][j] == 13158400) {
-						jellyList.add(new Jelly(jelly.getImage(), i * 40, j * 40, 30, 30, 2000)); // 좌표에 40곱하고, 넓이와 높이는
+						jellyList.add(new Jelly(jelly2.getImage(), i * 40, j * 40, 50, 50, 2000)); // 좌표에 40곱하고, 넓이와 높이는
 																									// 30
 					}
 				}
@@ -292,7 +297,7 @@ public class CookieRun extends JFrame {
 			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지, 1,1사이즈로 반복문
 				for (int j = 0; j < maxY; j += 1) {
 					if (colorArr[i][j] == 9868800) {
-						jellyList.add(new Jelly(jelly.getImage(), i * 40, j * 40, 30, 30, 3000)); // 좌표에 40곱하고, 넓이와 높이는
+						jellyList.add(new Jelly(jelly3.getImage(), i * 40, j * 40, 50, 50, 3000)); // 좌표에 40곱하고, 넓이와 높이는
 																									// 30
 					}
 				}
@@ -303,14 +308,14 @@ public class CookieRun extends JFrame {
 			/* 물약 객체 리스트 생성 */
 
 			// 피물약 255, 100, 0 // 16737280
-			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지, 1,1사이즈로 반복문
-				for (int j = 0; j < maxY; j += 1) {
-					if (colorArr[i][j] == 16737280) {
-						jellyList.add(new Jelly(jelly.getImage(), i * 40, j * 40, 30, 30, 10000)); // 좌표에 40곱하고, 넓이와 높이는
-																									// 30
-					}
-				}
-			}
+//			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지, 1,1사이즈로 반복문
+//				for (int j = 0; j < maxY; j += 1) {
+//					if (colorArr[i][j] == 16737280) {
+//						jellyList.add(new Jelly(jelly4.getImage(), i * 40, j * 40, 30, 30, 10000)); // 좌표에 40곱하고, 넓이와 높이는
+//																									// 30
+//					}
+//				}
+//			}
 
 			
 			
@@ -499,6 +504,7 @@ public class CookieRun extends JFrame {
 				}
 			}
 
+			
 			// 젤리
 			for (int i = 0; i < jellyList.size(); i++) {
 
@@ -508,11 +514,16 @@ public class CookieRun extends JFrame {
 
 					buffg.drawImage(
 
-							tempJelly.getImage(), tempJelly.getX(), tempJelly.getY(), tempJelly.getWidth(),
-							tempJelly.getHeight(), null);
+							tempJelly.getImage(), 
+							tempJelly.getX(), 
+							tempJelly.getY(), 
+							tempJelly.getWidth(),
+							tempJelly.getHeight(), 
+							null);
 				}
 			}
 
+			
 			// 장애물
 			for (int i = 0; i < tacleList.size(); i++) {
 
@@ -522,8 +533,12 @@ public class CookieRun extends JFrame {
 					
 					buffg.drawImage(
 
-							tempTacle.getImage(), tempTacle.getX(), tempTacle.getY(), tempTacle.getWidth() + 50,
-							tempTacle.getHeight(), null);
+							tempTacle.getImage(), 
+							tempTacle.getX(), 
+							tempTacle.getY(), 
+							tempTacle.getWidth() + 50,
+							tempTacle.getHeight(), 
+							null);
 
 				}
 			}
@@ -619,9 +634,9 @@ public class CookieRun extends JFrame {
 								resultScore = resultScore + tempJelly.getScore();
 
 							} else if (c1.getImage() == cookieDown.getImage()
-									&& tempJelly.getX() + tempJelly.getWidth() * 20 / 100 >= c1.getX()
+									&& tempJelly.getX() + tempJelly.getWidth() * 30 / 100 >= c1.getX()
 									&& tempJelly.getX() + tempJelly.getWidth() * 80 / 100 <= face
-									&& tempJelly.getY() + tempJelly.getHeight() * 20 / 100 >= c1.getY() + c1.getHeight() * 1 / 3
+									&& tempJelly.getY() + tempJelly.getHeight() * 30 / 100 >= c1.getY() + c1.getHeight() * 1 / 3
 									&& tempJelly.getY() + tempJelly.getHeight() * 80 / 100 <= foot
 									&& tempJelly.getImage() != effect.getImage()) {
 
