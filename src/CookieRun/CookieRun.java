@@ -91,8 +91,8 @@ public class CookieRun extends JFrame {
 	/* 게임에 구현할 이미지들을 그려준다. */
 
 	// 발판 이미지
-	private ImageIcon fieldIc1 = new ImageIcon("img/footTest.png"); // 1단발판
-	private ImageIcon fieldIc2 = new ImageIcon("img/footTest2.png"); // 2단발판
+	private ImageIcon fieldIc1 = new ImageIcon("img/fieldIc1.png"); // 1단발판
+	private ImageIcon fieldIc2 = new ImageIcon("img/fieldIc2.png"); // 2단발판
 
 	// 배경 이미지
 	private ImageIcon bg1 = new ImageIcon("img/bg1.png");
@@ -124,7 +124,10 @@ public class CookieRun extends JFrame {
 	private ImageIcon effect = new ImageIcon("img/tw2.png");
 
 	// 장애물 이미지
-	private ImageIcon tacle = new ImageIcon("img/tacleTest1.png"); // 장애물 (추후 추가예정)
+//	private ImageIcon tacle = new ImageIcon("img/tacleTest1.png"); // 장애물 (추후 추가예정)
+	private ImageIcon tacle = new ImageIcon("img/tacle1.gif"); // 1단 장애물
+	private ImageIcon tacle2 = new ImageIcon("img/tacle2.png"); // 2단 장애물
+	private ImageIcon tacle3 = new ImageIcon("img/tacle3.gif"); // 3단 장애물 
 
 	
 	
@@ -327,7 +330,7 @@ public class CookieRun extends JFrame {
 			for (int i = 0; i < maxX; i += 2) {
 				for (int j = 0; j < maxY; j += 2) {
 					if (colorArr[i][j] == 16711830) { // 색 값이 16711680일 경우 (빨간색)
-						tacleList.add(new Tacle(tacle.getImage(), i * 40, j * 40, 80, 80, 0)); // 좌표에 40을 곱하고, 넓이와 높이는
+						tacleList.add(new Tacle(tacle2.getImage(), i * 40, j * 40, 80, 160, 0)); // 좌표에 40을 곱하고, 넓이와 높이는
 																								// 80
 					}
 				}
@@ -337,7 +340,7 @@ public class CookieRun extends JFrame {
 			for (int i = 0; i < maxX; i += 2) {
 				for (int j = 0; j < maxY; j += 2) {
 					if (colorArr[i][j] == 16711935) { // 색 값이 16711680일 경우 (빨간색)
-						tacleList.add(new Tacle(tacle.getImage(), i * 40, j * 40, 80, 80, 0)); // 좌표에 40을 곱하고, 넓이와 높이는
+						tacleList.add(new Tacle(tacle3.getImage(), i * 40, j * 40, 80, 240, 0)); // 좌표에 40을 곱하고, 넓이와 높이는
 																								// 80
 					}
 				}
@@ -462,8 +465,21 @@ public class CookieRun extends JFrame {
 			super.paintComponent(buffg); // 이전 이미지를 지운다.
 
 			// 배경
-			buffg.drawImage(b11.getImage(), b11.getX(), 0, null);
-			buffg.drawImage(b12.getImage(), b12.getX(), 00, null);
+			buffg.drawImage(
+					b11.getImage(), 
+					b11.getX(), 
+					0, 
+					b11.getImage().getWidth(null), 
+					b11.getImage().getHeight(null) + 95, 
+					null);
+			
+			buffg.drawImage(
+					b12.getImage(), 
+					b12.getX(), 
+					0, 
+					b12.getImage().getWidth(null), 
+					b12.getImage().getHeight(null) + 95, 
+					null);
 
 			// 고정 배경
 			buffg.drawImage(bg2.getImage(), 0, 0, null);
@@ -503,10 +519,10 @@ public class CookieRun extends JFrame {
 				Tacle tempTacle = tacleList.get(i);
 
 				if (tempTacle.getX() > -90 && tempTacle.getX() < 810) {
-
+					
 					buffg.drawImage(
 
-							tempTacle.getImage(), tempTacle.getX(), tempTacle.getY(), tempTacle.getWidth(),
+							tempTacle.getImage(), tempTacle.getX(), tempTacle.getY(), tempTacle.getWidth() + 50,
 							tempTacle.getHeight(), null);
 
 				}
@@ -527,7 +543,7 @@ public class CookieRun extends JFrame {
 			g2.setComposite(alphaComposite);
 
 			// 점수
-			buffg.drawString(" Score : " + Integer.toString(resultScore), 700, 30);
+			buffg.drawString(" Score : " + Integer.toString(resultScore), 600, 55);
 
 			// 체력게이지
 			buffg.fillRect(50, 40, c1.getHealth() / 2, 30);
@@ -535,8 +551,6 @@ public class CookieRun extends JFrame {
 			// 화면에 출력
 			g.drawImage(buffImage, 0, 0, null);
 
-			buffg.drawLine(0, 0, 80, 500); // 범위 보기
-			buffg.drawLine(0, 80, 160, 500); // 범위 보기
 		}
 
 	}
